@@ -1,8 +1,9 @@
 import axios from "axios";
+require("dotenv").config();
 
 export function getRecipes() {
     return async function(dispatch) {
-        let response = await axios.get("http://localhost:3001/recipes", {
+        let response = await axios.get(`${GET_URL}/recipes`, {
 
         });
         return dispatch({
@@ -13,7 +14,7 @@ export function getRecipes() {
 }
 export function getDiet() {
     return function (dispatch) {
-        axios.get("http://localhost:3001/diets")
+        axios.get(`${GET_URL}/diets`)
         .then(response => {
             return dispatch({
                 type: "GET_DIETS",
@@ -52,7 +53,7 @@ export function sortScore(value) {
 export function getByName(name) {
     return async function(dispatch) {
         try {
-        let response = await axios.get(`http://localhost:3001/recipes?name=${name}`)
+        let response = await axios.get(`${GET_URL}/recipes?name=${name}`)
         return dispatch ({
             type: "GET_NAME",
             payload: response.data,
@@ -65,7 +66,7 @@ export function getByName(name) {
 export function postRecipe(payload) {
     return async function(dispatch) {
         try {
-            const response = await axios.post("http://localhost:3001/recipes", payload)
+            const response = await axios.post(`${GET_URL}/recipes`, payload)
             return response;
         } catch(e) {
             console.log(e.message, "Error en el Post")
@@ -76,7 +77,7 @@ export function postRecipe(payload) {
 export function getDetail(id){
     return async function(dispatch){
         try {
-            const response = await axios.get(`http://localhost:3001/recipes/${id}`)
+            const response = await axios.get(`${GET_URL}/recipes/${id}`)
             return dispatch({
                 type: "GET_DETAIL",
                 payload: response.data,
@@ -104,7 +105,7 @@ export function setPage(number) {
   }
 export const Remove = (id) => {
      return(dispatch) => {
-         axios.delete(`http://localhost:3001/recipes/${id}`).then((remove) => {
+         axios.delete(`${GET_URL}/recipes/${id}`).then((remove) => {
              dispatch({
                  type: "DELETE_RECIPE",
                  payload: remove.id
