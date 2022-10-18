@@ -1,5 +1,6 @@
 import axios from "axios";
 require("dotenv").config();
+import { GET_URL } from process.env;
 
 export function getRecipes() {
     return async function(dispatch) {
